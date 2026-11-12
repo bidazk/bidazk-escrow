@@ -9,8 +9,8 @@ referee split disputed deals. Design and rules: [DESIGN.md](DESIGN.md).
 
 | Instance | Contract | Arbiter |
 |---|---|---|
-| CLI demo | `CDHTDBFSCFNUIIRMEEYYQARLD2WWAFTVRQHRXLS7METINV6KYEJ4HAQ5` | `bidazk-arbiter` (private) |
-| Web demo (bidazk.xyz/demo) | `CBIZ5OYCD2GJ2LERRSE3WWFI2DIORIIBPSNYGUAV64TW6OASXGDG26JH` | `web-demo-arbiter` (key public in the web bundle on purpose) |
+| CLI demo | `CDUVEHVLAVIWAFC3YM35BW74DPEFG7DTFJHQQZWPMXOG4BUFZCAFTBA7` | `bidazk-arbiter` (private) |
+| Web demo (bidazk.xyz/demo) | `CCTJT2ETAK42HFZDCGJTSMEGX3D2OOX2XAAHLWUQAOPHHMCP5ANAGY2X` | `web-demo-arbiter` (key public in the web bundle on purpose) |
 
 Token: native XLM SAC `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`.
 Testnet resets periodically; after a reset, redeploy and update
@@ -33,7 +33,7 @@ stellar contract deploy \
 
 ```sh
 stellar contract invoke --id bidazk-escrow --source demo-buyer --network testnet -- \
-  create --buyer demo-buyer --seller demo-seller --amount 100000000 \
+  create --buyer demo-buyer --seller demo-seller --item 1 --amount 100000000 \
   --delivery_window 300 --inspection_period 120
 stellar contract invoke --id bidazk-escrow --source demo-seller --network testnet -- mark_delivered --deal_id 0
 stellar contract invoke --id bidazk-escrow --source demo-buyer  --network testnet -- confirm --deal_id 0

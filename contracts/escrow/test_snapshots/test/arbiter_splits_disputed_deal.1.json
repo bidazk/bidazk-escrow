@@ -64,6 +64,9 @@
                   "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
                 },
                 {
+                  "u32": 3
+                },
+                {
                   "i128": "1000"
                 },
                 {
@@ -391,6 +394,14 @@
                     },
                     "val": {
                       "u64": "600"
+                    }
+                  },
+                  {
+                    "key": {
+                      "symbol": "item"
+                    },
+                    "val": {
+                      "u32": 3
                     }
                   },
                   {

@@ -68,6 +68,10 @@ pub enum Status {
 pub struct Deal {
     pub buyer: Address,
     pub seller: Address,
+    /// Catalog reference for what is being bought. Opaque to the contract: it
+    /// lets the buyer's and seller's apps show the same item without trusting
+    /// each other's local storage.
+    pub item: u32,
     pub amount: i128,
     pub status: Status,
     pub created_at: u64,
@@ -101,6 +105,7 @@ pub struct DealCreated {
     pub deal_id: u64,
     pub buyer: Address,
     pub seller: Address,
+    pub item: u32,
     pub amount: i128,
 }
 
@@ -125,12 +130,13 @@ impl Escrow {
         env.storage().instance().set(&DataKey::NextId, &0u64);
     }
 
-    /// Buyer locks `amount` for `seller`. The seller has `delivery_window` seconds to mark
+    /// Buyer locks `amount` for `seller` against catalog `item`. The seller has `delivery_window` seconds to mark
     /// delivery; after that, the buyer has `inspection_period` seconds to dispute.
     pub fn create(
         env: Env,
         buyer: Address,
         seller: Address,
+        item: u32,
         amount: i128,
         delivery_window: u64,
         inspection_period: u64,
@@ -161,6 +167,7 @@ impl Escrow {
         let deal = Deal {
             buyer: buyer.clone(),
             seller: seller.clone(),
+            item,
             amount,
             status: Status::Funded,
             created_at: now,
@@ -177,7 +184,7 @@ impl Escrow {
             &amount,
         );
 
-        DealCreated { deal_id: id, buyer, seller, amount }.publish(&env);
+        DealCreated { deal_id: id, buyer, seller, item, amount }.publish(&env);
         Ok(id)
     }
 

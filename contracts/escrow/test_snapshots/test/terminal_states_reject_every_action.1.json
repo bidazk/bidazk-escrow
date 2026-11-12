@@ -64,6 +64,9 @@
                   "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
                 },
                 {
+                  "u32": 3
+                },
+                {
                   "i128": "1000"
                 },
                 {
@@ -135,6 +138,9 @@
                   "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
                 },
                 {
+                  "u32": 3
+                },
+                {
                   "i128": "1000"
                 },
                 {
@@ -185,6 +191,9 @@
                 },
                 {
                   "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
+                },
+                {
+                  "u32": 3
                 },
                 {
                   "i128": "1000"
@@ -257,6 +266,9 @@
                 },
                 {
                   "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
+                },
+                {
+                  "u32": 3
                 },
                 {
                   "i128": "1000"
@@ -714,6 +726,14 @@
                   },
                   {
                     "key": {
+                      "symbol": "item"
+                    },
+                    "val": {
+                      "u32": 3
+                    }
+                  },
+                  {
+                    "key": {
                       "symbol": "seller"
                     },
                     "val": {
@@ -814,6 +834,14 @@
                     },
                     "val": {
                       "u64": "600"
+                    }
+                  },
+                  {
+                    "key": {
+                      "symbol": "item"
+                    },
+                    "val": {
+                      "u32": 3
                     }
                   },
                   {
@@ -922,6 +950,14 @@
                   },
                   {
                     "key": {
+                      "symbol": "item"
+                    },
+                    "val": {
+                      "u32": 3
+                    }
+                  },
+                  {
+                    "key": {
                       "symbol": "seller"
                     },
                     "val": {
@@ -1022,6 +1058,14 @@
                     },
                     "val": {
                       "u64": "600"
+                    }
+                  },
+                  {
+                    "key": {
+                      "symbol": "item"
+                    },
+                    "val": {
+                      "u32": 3
                     }
                   },
                   {

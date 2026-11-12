@@ -9,6 +9,7 @@ use soroban_sdk::{
 };
 
 const AMOUNT: i128 = 1_000;
+const ITEM: u32 = 3;
 const DELIVERY: u64 = 3_600;
 const INSPECTION: u64 = 600;
 const START: u64 = 1_000_000;
@@ -47,7 +48,7 @@ fn setup<'a>() -> Setup<'a> {
 impl Setup<'_> {
     fn create(&self) -> u64 {
         self.escrow
-            .create(&self.buyer, &self.seller, &AMOUNT, &DELIVERY, &INSPECTION)
+            .create(&self.buyer, &self.seller, &ITEM, &AMOUNT, &DELIVERY, &INSPECTION)
     }
 
     fn advance(&self, secs: u64) {
@@ -97,6 +98,7 @@ fn create_locks_funds_in_contract() {
     let deal = s.escrow.get_deal(&id);
     assert_eq!(deal.delivery_deadline, START + DELIVERY);
     assert_eq!(deal.inspection_period, INSPECTION);
+    assert_eq!(deal.item, ITEM);
 }
 
 #[test]
@@ -380,25 +382,25 @@ fn create_rejects_bad_input() {
     let e = &s.escrow;
     let (b, sl, ar) = (&s.buyer, &s.seller, &s.arbiter);
 
-    assert_eq!(e.try_create(b, sl, &0, &DELIVERY, &INSPECTION), Err(Ok(Error::InvalidAmount)));
-    assert_eq!(e.try_create(b, sl, &-5, &DELIVERY, &INSPECTION), Err(Ok(Error::InvalidAmount)));
-    assert_eq!(e.try_create(b, b, &AMOUNT, &DELIVERY, &INSPECTION), Err(Ok(Error::SameParty)));
-    assert_eq!(e.try_create(b, ar, &AMOUNT, &DELIVERY, &INSPECTION), Err(Ok(Error::ArbiterIsParty)));
-    assert_eq!(e.try_create(ar, sl, &AMOUNT, &DELIVERY, &INSPECTION), Err(Ok(Error::ArbiterIsParty)));
+    assert_eq!(e.try_create(b, sl, &ITEM, &0, &DELIVERY, &INSPECTION), Err(Ok(Error::InvalidAmount)));
+    assert_eq!(e.try_create(b, sl, &ITEM, &-5, &DELIVERY, &INSPECTION), Err(Ok(Error::InvalidAmount)));
+    assert_eq!(e.try_create(b, b, &ITEM, &AMOUNT, &DELIVERY, &INSPECTION), Err(Ok(Error::SameParty)));
+    assert_eq!(e.try_create(b, ar, &ITEM, &AMOUNT, &DELIVERY, &INSPECTION), Err(Ok(Error::ArbiterIsParty)));
+    assert_eq!(e.try_create(ar, sl, &ITEM, &AMOUNT, &DELIVERY, &INSPECTION), Err(Ok(Error::ArbiterIsParty)));
     assert_eq!(
-        e.try_create(b, sl, &AMOUNT, &(MIN_WINDOW_SECS - 1), &INSPECTION),
+        e.try_create(b, sl, &ITEM, &AMOUNT, &(MIN_WINDOW_SECS - 1), &INSPECTION),
         Err(Ok(Error::InvalidDeliveryWindow))
     );
     assert_eq!(
-        e.try_create(b, sl, &AMOUNT, &(MAX_DELIVERY_SECS + 1), &INSPECTION),
+        e.try_create(b, sl, &ITEM, &AMOUNT, &(MAX_DELIVERY_SECS + 1), &INSPECTION),
         Err(Ok(Error::InvalidDeliveryWindow))
     );
     assert_eq!(
-        e.try_create(b, sl, &AMOUNT, &DELIVERY, &(MIN_WINDOW_SECS - 1)),
+        e.try_create(b, sl, &ITEM, &AMOUNT, &DELIVERY, &(MIN_WINDOW_SECS - 1)),
         Err(Ok(Error::InvalidInspectionWindow))
     );
     assert_eq!(
-        e.try_create(b, sl, &AMOUNT, &DELIVERY, &(MAX_INSPECTION_SECS + 1)),
+        e.try_create(b, sl, &ITEM, &AMOUNT, &DELIVERY, &(MAX_INSPECTION_SECS + 1)),
         Err(Ok(Error::InvalidInspectionWindow))
     );
     assert_eq!(s.balance(&s.escrow_id), 0);
